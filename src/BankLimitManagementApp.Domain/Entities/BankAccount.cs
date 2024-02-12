@@ -1,6 +1,9 @@
-﻿namespace BankLimitManagementApp.Domain.Entities
+﻿using Amazon.DynamoDBv2.DataModel;
+
+namespace BankLimitManagementApp.Domain.Entities
 {
-    public class BankAccount : BaseEntity
+    [DynamoDBTable("BankAccount")]
+    public class BankAccount
     {
         public BankAccount() { }
         public BankAccount(string clientName, string document, string agencyNumber, string accountNumber, decimal transactionLimit, decimal totalAmount)
@@ -13,12 +16,21 @@
             TotalAmount = totalAmount;
         }
 
+        [DynamoDBHashKey]
+        public int Id { get; set; }
+        [DynamoDBProperty]
         public string ClientName { get; private set; }
+        [DynamoDBProperty]
         public string Document { get; private set; }
+        [DynamoDBProperty]
         public string AgencyNumber { get; private set; }
+        [DynamoDBProperty]
         public string AccountNumber { get; private set; }
+        [DynamoDBProperty]
         public decimal TransactionLimit { get; private set; }
+        [DynamoDBProperty]
         public decimal TotalAmount { get; private set; }
+        [DynamoDBProperty]
         public DateTime? LastChange { get; private set; }
 
         public void UpdateTransactionLimit(decimal transactionLimit)

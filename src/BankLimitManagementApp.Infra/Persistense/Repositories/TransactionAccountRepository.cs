@@ -1,38 +1,57 @@
-﻿using BankLimitManagementApp.Domain.Entities;
+﻿using Amazon.DynamoDBv2.DataModel;
+using BankLimitManagementApp.Domain.Entities;
 using BankLimitManagementApp.Domain.Repositories;
-using BankLimitManagementApp.Infra.Persistense;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankLimitManagementApp.Infra.Persistense.Repositories
 {
-    public class TransactionAccountRepository(ApplicationDbContext applicationDbContext) : ITransactionAccountRepository
+    public class TransactionAccountRepository(IDynamoDBContext dbContext) : ITransactionAccountRepository
     {
-        private readonly ApplicationDbContext _applicationDbContext = applicationDbContext;
-
         public async Task<List<TransactionAccount>> GetAllTransactions()
         {
-            return await _applicationDbContext.TransactionAccounts
-                .Include(b => b.BankAccount)
-                .ToListAsync();
+            var transactions = await dbContext.ScanAsync<TransactionAccount>(new List<ScanCondition>()).GetRemainingAsync();
+
+            var bankAccountIds = transactions.Select(t => t.BankAccountId).Distinct().ToList();
+
+            var bankAccounts = new List<BankAccount>();
+
+            foreach (var bankAccountId in bankAccountIds)
+            {
+                var bankAccount = await dbContext.LoadAsync<BankAccount>(bankAccountId);
+
+                if (bankAccount != null)
+                {
+                    bankAccounts.Add(bankAccount);
+                }
+            }
+
+            foreach (var transaction in transactions)
+            {
+                var associatedBankAccount = bankAccounts.SingleOrDefault(b => b.Id == transaction.BankAccountId);
+
+                if (associatedBankAccount != null)
+                {
+                    transaction.BankAccount = associatedBankAccount;
+                }
+            }
+
+            return transactions;
         }
 
         public async Task<TransactionAccount> GetTransactionById(int id)
         {
-            return await _applicationDbContext.TransactionAccounts
-                .Include(b => b.BankAccount)
-                .SingleOrDefaultAsync(t => t.Id == id);
+            var transaction = await dbContext.LoadAsync<TransactionAccount>(id);
+
+            var bankAccount = await dbContext.LoadAsync<BankAccount>(transaction.BankAccountId);
+
+            transaction.BankAccount = bankAccount;
+
+            return transaction;
         }
 
         public async Task AddTransaction(TransactionAccount transactionAccount)
         {
-            await _applicationDbContext.TransactionAccounts.AddAsync(transactionAccount);
-
-            await _applicationDbContext.SaveChangesAsync();
+            await dbContext.SaveAsync(transactionAccount);
         }
     }
 }
+

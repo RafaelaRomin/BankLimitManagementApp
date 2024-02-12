@@ -52,6 +52,8 @@ namespace BankLimitManagementApp.Mvc.Controllers
                                           inputModel.TransactionLimit,
                                           inputModel.TotalAmount);
 
+            await AutoIncrementId(account);
+
             await _bankAccountRepository.AddAccountAsync(account);
 
             return RedirectToAction("Index");
@@ -81,20 +83,14 @@ namespace BankLimitManagementApp.Mvc.Controllers
             {
                 BadRequest();
             }
-            try
-            {
-                var account = await _bankAccountRepository.GetAccountByIdAsync(id);
 
-                if (account == null) return NotFound();
+            var account = await _bankAccountRepository.GetAccountByIdAsync(id);
 
-                account.UpdateTransactionLimit(editBankAccountInputModel.TransactionLimit);
+            if (account == null) return NotFound();
 
-                _bankAccountRepository.UpdateLimitAccount(account);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            account.UpdateTransactionLimit(editBankAccountInputModel.TransactionLimit);
+
+            _bankAccountRepository.UpdateLimitAccount(account);
 
             return RedirectToAction("Index");
         }
@@ -122,6 +118,22 @@ namespace BankLimitManagementApp.Mvc.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        private async Task AutoIncrementId(BankAccount account)
+        {
+            var listAccounts = await _bankAccountRepository.GetAllBankAccounts(null);
+
+            var maxIdBankAccount = listAccounts.MaxBy(b => b.Id);
+
+            if (maxIdBankAccount != null)
+            {
+                account.Id = maxIdBankAccount.Id + 1;
+            }
+            else
+            {
+                account.Id = 1;
+            }
         }
     }
 }

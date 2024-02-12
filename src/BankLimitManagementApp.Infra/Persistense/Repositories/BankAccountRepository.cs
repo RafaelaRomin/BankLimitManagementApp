@@ -1,43 +1,46 @@
-﻿using BankLimitManagementApp.Domain.Entities;
+﻿using Amazon.DynamoDBv2.DataModel;
+using BankLimitManagementApp.Domain.Entities;
 using BankLimitManagementApp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace BankLimitManagementApp.Infra.Persistense.Repositories
 {
-    public class BankAccountRepository(ApplicationDbContext applicationDbContext) : IBankAccountRepository
+    public class BankAccountRepository(IDynamoDBContext dbContext) : IBankAccountRepository
     {
-        private readonly ApplicationDbContext _applicationDbContext = applicationDbContext;
         public async Task AddAccountAsync(BankAccount bankAccount)
         {
-            await _applicationDbContext.BankAccounts.AddAsync(bankAccount);
-
-            await _applicationDbContext.SaveChangesAsync();
+            await dbContext.SaveAsync(bankAccount);
         }
 
         public async Task<BankAccount> GetAccountByIdAsync(int id)
         {
-            return await _applicationDbContext.BankAccounts.SingleOrDefaultAsync(a => a.Id == id);
+            return await dbContext.LoadAsync<BankAccount>(id);
         }
 
         public async Task DeleteAccountAsync(BankAccount bankAccount)
         {
-            _applicationDbContext.Remove(bankAccount);
-            await _applicationDbContext.SaveChangesAsync();
+            await dbContext.DeleteAsync<BankAccount>(bankAccount.Id);
         }
 
         public void UpdateLimitAccount(BankAccount bankAccount)
         {
-            _applicationDbContext.BankAccounts.Update(bankAccount);
-            _applicationDbContext.SaveChanges();
+            dbContext.SaveAsync(bankAccount);
         }
 
         public async Task<List<BankAccount>> GetAllBankAccounts(string? filter)
         {
-            if(filter == null) return await _applicationDbContext.BankAccounts.ToListAsync();
+            if (filter == null)
+            {
+                return await dbContext.ScanAsync<BankAccount>(new List<ScanCondition>()).GetRemainingAsync();
+            }
 
-            return await _applicationDbContext.BankAccounts
-                .Where(b => b.Document.Contains(filter) || b.ClientName.Contains(filter) || b.AccountNumber.Contains(filter))
-                .ToListAsync();
+            var listBankAccount = await dbContext.ScanAsync<BankAccount>(new List<ScanCondition>()).GetRemainingAsync();
+
+            return listBankAccount
+                .Where(b =>
+                    b.Document.Contains(filter, StringComparison.InvariantCultureIgnoreCase) ||
+                    b.ClientName.Contains(filter, StringComparison.InvariantCultureIgnoreCase) ||
+                    b.AccountNumber.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
+                .ToList();
         }
     }
 }

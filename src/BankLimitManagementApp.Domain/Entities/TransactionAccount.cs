@@ -1,10 +1,12 @@
-﻿using BankLimitManagementApp.Domain.Enums;
+﻿using Amazon.DynamoDBv2.DataModel;
+using BankLimitManagementApp.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace BankLimitManagementApp.Domain.Entities
 {
-    public class TransactionAccount : BaseEntity
+    [DynamoDBTable("TransactionAccount")]
+    public class TransactionAccount 
     {
         public TransactionAccount() { }
 
@@ -13,23 +15,29 @@ namespace BankLimitManagementApp.Domain.Entities
             BankAccountId = bankAccountId;
             Value = value;
             TransactionDate = DateTime.Now;
-            TransactionStatus = TransactionStatusEnum.Pending;
+            TransactionStatus = TransactionStatusEnum.Pending.ToString();
         }
 
-        public int BankAccountId { get;  private set; } 
-        public decimal Value { get;  private set; } 
-        public DateTime TransactionDate { get;  private set; } 
-        public TransactionStatusEnum? TransactionStatus { get;  private set; }
-        public BankAccount BankAccount { get;  private set; }
+        [DynamoDBHashKey]
+        public int Id { get; set; }
+        [DynamoDBProperty]
+        public int BankAccountId { get;  private set; }
+        [DynamoDBProperty]
+        public decimal Value { get;  private set; }
+        [DynamoDBProperty]  
+        public DateTime TransactionDate { get;  private set; }
+        [DynamoDBProperty]
+        public string? TransactionStatus { get;  private set; }
+        public BankAccount BankAccount { get;  set; }
 
         public void SetTransactionApproved()
         {
-            TransactionStatus = TransactionStatusEnum.Approved;
+            TransactionStatus = TransactionStatusEnum.Approved.ToString();
         }
 
         public void SetTransactionDenied()
         {
-            TransactionStatus = TransactionStatusEnum.Denied;
+            TransactionStatus = TransactionStatusEnum.Denied.ToString();
         }
     }
 }

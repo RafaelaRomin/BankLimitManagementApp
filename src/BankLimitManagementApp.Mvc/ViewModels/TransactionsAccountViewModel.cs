@@ -11,6 +11,6 @@ namespace BankLimitManagementApp.Mvc.ViewModels
         public string AccountNumber { get; set; }
         public decimal Value { get; set; }
         public string TransactionDate { get; set; }
-        public TransactionStatusEnum? TransactionStatus { get; set; }
+        public string? TransactionStatus { get; set; }
     }
 }

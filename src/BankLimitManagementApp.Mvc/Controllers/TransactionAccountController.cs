@@ -42,8 +42,10 @@ namespace BankLimitManagementApp.Mvc.Controllers
 
             var accountsViewModel = bankAccounts.ConvertBankAccountViewModel();
 
-            var input = new TransactionAccountInputModel();
-            input.BankAccounts = accountsViewModel;
+            var input = new TransactionAccountInputModel
+            {
+                BankAccounts = accountsViewModel
+            };
 
             return View(input);
         }
@@ -62,6 +64,8 @@ namespace BankLimitManagementApp.Mvc.Controllers
             if (account == null) return BadRequest("Conta não existe!!");
 
             var transactionAccount = new TransactionAccount(inputModel.BankAccountId, inputModel.Value);
+
+            await AutoIncrementId(transactionAccountRepository, transactionAccount);
 
             var isValid = _transactionService.CheckLimitIsValid(account, transactionAccount);
 
@@ -92,6 +96,22 @@ namespace BankLimitManagementApp.Mvc.Controllers
             var finallyViewModel = account.ConvertFinallyViewModel();
 
             return View(finallyViewModel);
+        }
+
+        private static async Task AutoIncrementId(ITransactionAccountRepository transactionAccountRepository, TransactionAccount transactionAccount)
+        {
+            var listTransactions = await transactionAccountRepository.GetAllTransactions();
+
+            var maxIdTransactions = listTransactions.MaxBy(b => b.Id);
+
+            if (maxIdTransactions != null)
+            {
+                transactionAccount.Id = maxIdTransactions.Id + 1;
+            }
+            else
+            {
+                transactionAccount.Id = 1;
+            }
         }
 
     }
