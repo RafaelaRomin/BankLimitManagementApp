@@ -9,7 +9,7 @@ Para executar o projeto, você precisará das seguintes ferramentas instaladas e
 Alguma IDE de sua preferência
 
 - [Rider](https://www.jetbrains.com/rider/)
-- [Visual Studio Code](https://code.visualstudio.com/)
+- [Visual Studio Code](https://code.visualstudio.com/) [Editor de código, mais leve]
 - [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/community/)
   
 Versão do .Net utilizado no projeto:
