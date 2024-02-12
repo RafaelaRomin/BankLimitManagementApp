@@ -16,11 +16,11 @@ namespace BankLimitManagementApp.Domain.Entities
             TransactionStatus = TransactionStatusEnum.Pending;
         }
 
-        public int BankAccountId { get;  set; } 
-        public decimal Value { get;  set; } 
-        public DateTime TransactionDate { get;  set; } 
-        public TransactionStatusEnum? TransactionStatus { get;  set; }
-        public BankAccount BankAccount { get;  set; }
+        public int BankAccountId { get;  private set; } 
+        public decimal Value { get;  private set; } 
+        public DateTime TransactionDate { get;  private set; } 
+        public TransactionStatusEnum? TransactionStatus { get;  private set; }
+        public BankAccount BankAccount { get;  private set; }
 
         public void SetTransactionApproved()
         {

@@ -3,55 +3,53 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<br/>
+<h1>Editar limite de transação</h1>
 
-<h1>Edit</h1>
-
-<h4>BankAccount</h4>
+<h4>Informações da conta a ser editada</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ClientName" class="control-label"></label>
+                <label asp-for="ClientName" class="col-form-label mt-4">Nome do cliente</label>
                 <input asp-for="ClientName" disabled="disabled" class="form-control"/>
                 <span asp-validation-for="ClientName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Document" class="control-label"></label>
+                <label asp-for="Document" class="control-label">Documento</label>
                 <input asp-for="Document" disabled="disabled" class="form-control" />
                 <span asp-validation-for="Document" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AgencyNumber" class="control-label"></label>
+                <label asp-for="AgencyNumber" class="control-label">Número da agência</label>
                 <input asp-for="AgencyNumber" disabled="disabled" class="form-control" />
                 <span asp-validation-for="AgencyNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AccountNumber" class="control-label"></label>
+                <label asp-for="AccountNumber" class="control-label">Número da conta</label>
                 <input asp-for="AccountNumber" disabled="disabled" class="form-control" />
                 <span asp-validation-for="AccountNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TransactionLimit" class="control-label"></label>
+                <label asp-for="TransactionLimit" class="control-label">Limite de transação</label>
                 <input asp-for="TransactionLimit" class="form-control" />
                 <span asp-validation-for="TransactionLimit" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastChange" class="control-label"></label>
+                <label asp-for="LastChange" class="control-label">Última alteração</label>
                 <input asp-for="LastChange" disabled="disabled" class="form-control" />
                 <span asp-validation-for="LastChange" class="text-danger"></span>
             </div>
+            <br />
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-dark" />
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

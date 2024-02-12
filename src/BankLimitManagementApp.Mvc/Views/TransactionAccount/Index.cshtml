@@ -4,50 +4,52 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Transações realizadas</h1>
+
+<br/>
+
+<a asp-action="Create" class="btn btn-outline-dark">Realizar nova transação</a>
+<hr />
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientName)
+            <th class="table-secondary">
+                @Html.DisplayName("Nome do cliente")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
+            <th class="table-secondary">
+                @Html.DisplayName("Valor")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionDate)
+            <th class="table-secondary">
+                @Html.DisplayName("Data da transação")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionStatus)
+            <th class="table-secondary">
+                @Html.DisplayName("Status da transação")
             </th>
-            <th></th>
+            <th class="table-secondary"></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionStatus)
-            </td>
-            <td>
-
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionStatus)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Detalhar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

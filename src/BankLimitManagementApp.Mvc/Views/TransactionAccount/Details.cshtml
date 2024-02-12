@@ -3,57 +3,57 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
+<br>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>TransactionAccount</h4>
+    <h4>Registro da transação realizada</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClientName)
+        <dt class = "table-light">
+            @Html.DisplayName("Nome do cliente")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class= "table-light">
             @Html.DisplayFor(model => model.ClientName)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Document)
+        <dt class="table-light">
+            @Html.DisplayName("Documento")
         </dt>
-        <dd class="col-sm-10">
+        <dd class="table-light">
             @Html.DisplayFor(model => model.Document)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AgencyNumber)
+        <dt class="table-light">
+            @Html.DisplayName("Número da agência")
         </dt>
-        <dd class="col-sm-10">
+        <dd class="table-light">
             @Html.DisplayFor(model => model.AgencyNumber)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AccountNumber)
+        <dt class="table-light">
+            @Html.DisplayName("Número da conta")
         </dt>
-        <dd class="col-sm-10">
+        <dd class="table-light">
             @Html.DisplayFor(model => model.AccountNumber)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Value)
+        <dt class="table-light">
+            @Html.DisplayName("Valor transacionado")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="table-light">
             @Html.DisplayFor(model => model.Value)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionDate)
+        <dt class="table-light">
+            @Html.DisplayName("Data da transação")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="table-light">
             @Html.DisplayFor(model => model.TransactionDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactionStatus)
+        <dt class="table-light">
+            @Html.DisplayName("Status da transação")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="table-light">
             @Html.DisplayFor(model => model.TransactionStatus)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-dark">Voltar</a>
 </div>

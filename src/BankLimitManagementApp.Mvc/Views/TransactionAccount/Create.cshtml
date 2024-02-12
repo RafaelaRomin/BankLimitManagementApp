@@ -3,39 +3,40 @@
 @{
     ViewData["Title"] = "Create";
 }
+<br/>
+<h1>Transações</h1>
 
-<h1>Create</h1>
-
-<h4>TransactionAccount</h4>
+<h4>Realizar uma nova transação</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BankAccountId" class="control-label"></label>
-                <select asp-for="BankAccountId" class="form-control" asp-items="@(new SelectList(Model.BankAccounts, "Id", "ClientName"))">
-                    <option></option>
+                <label asp-for="BankAccountId" class="col-form-label mt-4">Titular da conta</label>
+                <select asp-for="BankAccountId" class="form-control"  asp-items="@(new SelectList(Model.BankAccounts, "Id", "ClientName"))">
+                <option></option>
                 </select>
 
                 <span asp-validation-for="BankAccountId" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="Value" class="control-label"></label>
-                <input asp-for="Value" class="form-control" />
+                <label asp-for="Value" class="col-form-label mt-4">Valor da transação</label>
+                <input asp-for="Value" class="form-control"/>
                 <span asp-validation-for="Value" class="text-danger"></span>
             </div>
-
+            <br/>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+                <input type="submit" value="Criar" class="btn btn-dark"/> 
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

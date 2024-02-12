@@ -3,40 +3,39 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<br />
+<h1>Página Inicial - Contas Bancárias</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-outline-dark">Adicionar nova conta</a>
 </p>
-<form asp-controller="BankAccount" asp-action="Index" method="get">
-    <p>
-        <input type="text" name="filter" />
-        <input type="submit" value="Filter" />
-    </p>
+<form asp-controller="BankAccount" asp-action="Index" method="get" class="d-flex">
+        <input type="text" name="filter" class="form-control me-sm-2" />
+    <input type="submit" value="Buscar" class="btn btn-secondary" />
 </form>
-
+<hr/>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientName)
+        <tr class="table-secondary">
+            <th class="table-secondary">
+                @Html.DisplayName("Nome do cliente")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Document)
+            <th class="table-secondary">
+                @Html.DisplayName("Documento")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AgencyNumber)
+            <th class="table-secondary">
+                @Html.DisplayName("Número da agência")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountNumber)
+            <th class="table-secondary">
+                @Html.DisplayName("Número da conta")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TransactionLimit)
+            <th class="table-secondary">
+                @Html.DisplayName("Limite de transação")
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastChange)
+            <th class="table-secondary">
+                @Html.DisplayName("Última alteração realizada")
             </th>
+            <th class ="table-secondary"></th>
         </tr>
     </thead>
     <tbody>
@@ -61,10 +60,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.LastChange)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td class="text-left">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Detalhes</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Deletar</a>
                 </td>
             </tr>
         }

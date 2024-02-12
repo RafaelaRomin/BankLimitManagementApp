@@ -1,12 +1,6 @@
 ﻿using BankLimitManagementApp.Domain.Entities;
 using BankLimitManagementApp.Domain.Repositories;
-using BankLimitManagementApp.Infra.Persistense;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankLimitManagementApp.Infra.Persistense.Repositories
 {

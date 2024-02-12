@@ -8,7 +8,7 @@ using BankLimitManagementApp.Domain.Services;
 namespace BankLimitManagementApp.Mvc.Controllers
 {
     public class TransactionAccountController(
-        ITransactionAccountRepository transactionAccountRepository, 
+        ITransactionAccountRepository transactionAccountRepository,
         IBankAccountRepository bankAccountRepository,
         ITransactionService transactionService) : Controller
     {
@@ -16,7 +16,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
         private readonly IBankAccountRepository _bankAccountRepository = bankAccountRepository;
         private readonly ITransactionService _transactionService = transactionService;
 
-        // GET: TransactionAccount
         public async Task<IActionResult> Index()
         {
             var transactions = await _transactionAccountRepository.GetAllTransactions();
@@ -26,7 +25,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
             return View(transactionsViewModel);
         }
 
-        // GET: TransactionAccount/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var transactionAccount = await _transactionAccountRepository.GetTransactionById(id);
@@ -38,7 +36,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
             return View(viewModelTransactionDetails);
         }
 
-        // GET: TransactionAccount/Create
         public async Task<IActionResult> Create()
         {
             var bankAccounts = await _bankAccountRepository.GetAllBankAccounts(null);
@@ -51,7 +48,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
             return View(input);
         }
 
-        // POST: TransactionAccount/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TransactionAccountInputModel inputModel)
@@ -88,6 +84,7 @@ namespace BankLimitManagementApp.Mvc.Controllers
 
             return RedirectToAction("Finally", new { account.Id });
         }
+
         public async Task<IActionResult> Finally(int id)
         {
             var account = await _bankAccountRepository.GetAccountByIdAsync(id);

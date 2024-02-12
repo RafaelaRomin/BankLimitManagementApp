@@ -3,41 +3,41 @@
 @{
     ViewData["Title"] = "Finally";
 }
+<br/>
+<h2>Transação concluída</h2>
 
-<h1>Finally</h1>
-
-<h4>TransactionAccount</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <div class="alert alert-dismissible alert-success">
+        <div class="alert alert-dismissible alert-secondary">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
+            <strong>Sua transação foi concluída com sucesso! </strong> <p> Você pode conferir mais detalhes abaixo, junto com seu saldo e limite transacional disponível!</p>
         </div>
     </div>
     <dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.ClientName)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.ClientName)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.TransactionLimit)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.TransactionLimit)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.TotalAmount)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.TotalAmount)
-    </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Nome do cliente")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClientName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Limite de transação")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TransactionLimit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Saldo disponível")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+    </dl>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-dark">Voltar</a>
 </div>
 
 

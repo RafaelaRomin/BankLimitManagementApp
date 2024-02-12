@@ -11,7 +11,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
     {
         private readonly IBankAccountRepository _bankAccountRepository = bankAccountRepository;
 
-        // GET: BankAccount
         public async Task<IActionResult> Index(string? filter)
         {
             var accounts = await _bankAccountRepository.GetAllBankAccounts(filter);
@@ -21,7 +20,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
             return View(accountsViewModel);
         }
 
-        // GET: BankAccount/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var bankAccount = await _bankAccountRepository.GetAccountByIdAsync(id);
@@ -33,13 +31,11 @@ namespace BankLimitManagementApp.Mvc.Controllers
             return View(accountViewModelDetails);
         }
 
-        // GET: BankAccount/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: BankAccount/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BankAccountInputModel inputModel)
@@ -61,7 +57,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: BankAccount/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             var bankAccount = await _bankAccountRepository.GetAccountByIdAsync(id);
@@ -72,8 +67,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
 
             return View(bankAccountViewModel);
         }
-
-        // POST: BankAccount/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -117,7 +110,6 @@ namespace BankLimitManagementApp.Mvc.Controllers
             return View(bankAccountViewModel);
         }
 
-        // POST: BankAccount/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

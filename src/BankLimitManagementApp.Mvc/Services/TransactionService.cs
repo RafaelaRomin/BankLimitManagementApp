@@ -1,5 +1,4 @@
 ﻿using BankLimitManagementApp.Domain.Entities;
-using BankLimitManagementApp.Domain.Repositories;
 using BankLimitManagementApp.Domain.Services;
 
 namespace BankLimitManagementApp.Mvc.Services
@@ -24,8 +23,7 @@ namespace BankLimitManagementApp.Mvc.Services
 
         public void DebitValueAccount(BankAccount bankAccount, TransactionAccount transactionAccount)
         {
-            bankAccount.TransactionLimit -= transactionAccount.Value;
-            bankAccount.TotalAmount -= transactionAccount.Value;
+            bankAccount.ChangeLimitAndTotalAmount(transactionAccount.Value, transactionAccount.Value);
         }
     }
 }
