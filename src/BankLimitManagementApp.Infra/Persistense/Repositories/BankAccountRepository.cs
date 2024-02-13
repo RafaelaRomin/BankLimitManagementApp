@@ -19,6 +19,19 @@ namespace BankLimitManagementApp.Infra.Persistense.Repositories
         public async Task DeleteAccountAsync(BankAccount bankAccount)
         {
             await dbContext.DeleteAsync<BankAccount>(bankAccount.Id);
+
+            var transactions = await dbContext.ScanAsync<TransactionAccount>(new List<ScanCondition>())
+                .GetRemainingAsync();
+
+            var transactionsRelated = transactions
+                .Where(t => t.BankAccountId == bankAccount.Id)
+                .Select(t => t.Id)
+                .ToList();
+
+            foreach (var transactionId in transactionsRelated)
+            {
+                await dbContext.DeleteAsync<TransactionAccount>(transactionId);
+            }
         }
 
         public void UpdateLimitAccount(BankAccount bankAccount)

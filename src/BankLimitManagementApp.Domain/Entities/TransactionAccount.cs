@@ -1,7 +1,5 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using BankLimitManagementApp.Domain.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace BankLimitManagementApp.Domain.Entities
 {
