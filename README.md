@@ -29,9 +29,11 @@ Execute o Docker compose na pasta para inicar o DynamoDb
       docker compose up 
 
 
-Abra o projeto na sua IDE de preferência, e execute. 
+Abra o projeto na sua IDE de preferência, e execute o projeto. 
 
 Tela inicial do projeto:
 
 
 ![image](https://github.com/RafaelaRomin/BankLimitManagementApp/assets/124751861/175ef70d-3de6-4537-b78b-1fc5d3181fd2)
+
+
